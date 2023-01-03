@@ -1,0 +1,15 @@
+/Users/chandima_athapattu/Projects/ExpenseTracker/bin/Debug/net6.0/ExpenseTracker
+/Users/chandima_athapattu/Projects/ExpenseTracker/bin/Debug/net6.0/ExpenseTracker.deps.json
+/Users/chandima_athapattu/Projects/ExpenseTracker/bin/Debug/net6.0/ExpenseTracker.runtimeconfig.json
+/Users/chandima_athapattu/Projects/ExpenseTracker/bin/Debug/net6.0/ExpenseTracker.dll
+/Users/chandima_athapattu/Projects/ExpenseTracker/bin/Debug/net6.0/ExpenseTracker.pdb
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ExpenseTracker.csproj.AssemblyReference.cache
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ExpenseTracker.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ExpenseTracker.AssemblyInfoInputs.cache
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ExpenseTracker.AssemblyInfo.cs
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ExpenseTracker.csproj.CoreCompileInputs.cache
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ExpenseTracker.dll
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/refint/ExpenseTracker.dll
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ExpenseTracker.pdb
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ExpenseTracker.genruntimeconfig.cache
+/Users/chandima_athapattu/Projects/ExpenseTracker/obj/Debug/net6.0/ref/ExpenseTracker.dll
