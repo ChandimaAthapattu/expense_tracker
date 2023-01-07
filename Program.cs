@@ -5,12 +5,65 @@ namespace ExpenseTracker
 {
     public class Program
     {
+        
+        static Category category = null;
 
         public static void Main(String[] args)
         {
-            //Create objects following singleton design pattern
-            Category category = null;
-            Transaction transaction;
+            readTransactionData();
+            createTransaction();
+           
+            //Get the category wise spent amounts
+            category = Education.getInstance();
+            Console.WriteLine($"Spent amount for Education: {category.getTotal()}");
+            category = Transport.getInstance();
+            Console.WriteLine($"Spent amount for Transport: {category.getTotal()}");
+
+            //Get the total income
+            category = Income.getInstance();
+            Console.WriteLine($"Total Income: {category.getTotal()}");
+
+            //transaction.editTransaction();
+
+            //transaction.deleteTransactions();
+
+        }
+
+        public static void readTransactionData()
+        {
+            //Read the transaction file content
+            String transactions_path = @"Transactions.txt";
+            String[] transactionRecords = File.ReadAllLines(transactions_path);
+
+            //Read each transaction line
+            Double amount = 0.0;
+            for (int i = 0; i < transactionRecords.Length; i++)
+            {
+                String[] transaction = transactionRecords[i].Split('|');
+                amount = System.Convert.ToDouble(transaction[1]);
+
+                //Set each transaction amount based on it's category
+                if (transaction[4].Equals("Education"))
+                {
+                    Category category = Education.getInstance();
+                    category.setTotal(amount);
+                }
+                else if (transaction[4].Equals("Transport"))
+                {
+                    Category category = Transport.getInstance();
+                    category.setTotal(amount);
+                }
+                else if (transaction[4].Equals("Income"))
+                {
+                    Category category = Income.getInstance();
+                    category.setTotal(amount);
+                }
+            }
+        }
+
+        public static void createTransaction()
+        {
+            
 
             Console.WriteLine("Enter the transaction name:");
             String name = Console.ReadLine();
@@ -49,25 +102,13 @@ namespace ExpenseTracker
             }
 
             //Append the transaction amount to category
+            Console.WriteLine("Before add the amount " + category.getTotal());
             category.setTotal(amount);
+            Console.WriteLine("After added the amount " + category.getTotal());
 
             //Create the transaction object
-            transaction = new Transaction(name, amount, isExpense, today, category.getCategoryName());
+            Transaction transaction = new Transaction(name, amount, isExpense, today, category.getCategoryName());
             transaction.writeToFile();
-            transaction.readTransactionData();
-
-            //Get the category wise spent amounts
-            category = Education.getInstance();
-            Console.WriteLine($"Spent amount for Education: {category.getTotal()}");
-            category = Transport.getInstance();
-            Console.WriteLine($"Spent amount for Transport: {category.getTotal()}");
-
-            //Get the total income
-            category = Income.getInstance();
-            Console.WriteLine($"Total Income: {category.getTotal()}");
-
-            transaction.editTransaction();
-
         }
 
         

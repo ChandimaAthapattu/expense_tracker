@@ -1,7 +1,7 @@
 groceries|200|True|1/6/2023|Education
 Vegetables|950|True|1/5/2023|Education
-Vegetables|800|True|1/6/2023|Education
 MonthlyIncome|10|False|1/6/2023|Income
 aaa|10|False|1/6/2023|Income
 bbb|10|False|1/6/2023|Income
-taxi|100|True|1/6/2023|Transport
+Buy Vegetables|800|True|1/7/2023|Education
+Train|100|True|1/7/2023|Transport

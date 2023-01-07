@@ -10,9 +10,10 @@ namespace ExpenseTracker
 		private Double amount;
 		private bool isExpense;
 		private String date;
-		private String category;
+		private String categoryName;
         String transactions_path;
         String[] transactionRecords;
+        Category category = null;
 
 
         public Transaction(String name, Double amount, bool isExpense, String date, String category)
@@ -21,22 +22,14 @@ namespace ExpenseTracker
 			this.amount = amount;
 			this.isExpense = isExpense;
 			this.date = date;
-			this.category = category;
+			this.categoryName = category;
 		}
 
-        //public static Transaction getInstance(String name, Double amount, bool isExpense, String date, String category)
-        //{
-        //    if (_instance is null)
-        //    {
-        //        _instance = new Transaction(name,amount,isExpense,date,category);
-        //    }
-        //    return _instance;
-        //}
 
         public void writeToFile()
 		{
 			//Construct the transaction to a string
-			String transaction_record = $"{name}|{amount}|{isExpense}|{date}|{category}";
+			String transaction_record = $"{name}|{amount}|{isExpense}|{date}|{categoryName}";
 			Console.WriteLine();
 			Console.WriteLine($"Transaction is {transaction_record}");
 
@@ -61,65 +54,84 @@ namespace ExpenseTracker
             File.WriteAllLines(fileName, arrLine);
         }
 
+        public void deleteTransactionLine(String fileName, int lineToDelete)
+        {
+            String[] arrLine = File.ReadAllLines(fileName);
+            List<String> arrayList = new List<string>(arrLine);
+            arrayList.RemoveAt(lineToDelete);
+            arrLine = arrayList.ToArray();
+            File.WriteAllLines(fileName, arrLine);
+            Console.WriteLine("Transaction successfully deleted.");
+        }
+
         public void readTransactionData()
         {
-            //Read the transaction file content
+            
+        }
+
+        public void viewTransactions()
+        {
             transactions_path = @"Transactions.txt";
             transactionRecords = File.ReadAllLines(transactions_path);
 
-            ////Read the category file content
-            //String categories_path = @"Categories.txt";
-            //String[] categoryRecords = File.ReadAllLines(categories_path);
 
-            ////Extract the categories
-            //List<String> incomeCategories = new List<string>();
-            //List<String> expenseCategories = new List<string>();
+            Console.WriteLine("Transaction Records");
+            Console.WriteLine();
+            Console.WriteLine("ID | Name | Amount | isExpense | Date | Category");
 
-            //for (int x = 0; x < categoryRecords.Length; x++)
-            //{
-            //    String[] category = categoryRecords[x].Split(' ');
-            //    if (category[1].Equals("true"))
-            //    {
-            //        incomeCategories.Add(category[0]);
-            //    }
-            //    else
-            //    {
-            //        expenseCategories.Add(category[0]);
-            //    }
-            //}
-            //foreach (String w in incomeCategories)
-            //{
-            //    Console.WriteLine($"Income category {w}");
-            //}
-            //foreach (String w in expenseCategories)
-            //{
-            //    Console.WriteLine($"Expense category {w}");
-            //}
-
-
-            //Read each transaction line
-            Double amount = 0.0;
+            //Display the recent transactions
             for (int i = 0; i < transactionRecords.Length; i++)
             {
                 String[] transaction = transactionRecords[i].Split('|');
-                amount = System.Convert.ToDouble(transaction[1]);
+                Console.WriteLine($"{i} | {transaction[0]} | {transaction[1]} | {transaction[2]} | {transaction[3]} | {transaction[4]}");
+            }
+            Console.Clear();
+        }
 
-                //Set each transaction amount based on it's category
-                if (transaction[4].Equals("Education"))
-                {
-                    Category category = Education.getInstance();
-                    category.setTotal(amount);
-                }
-                else if (transaction[4].Equals("Transport"))
-                {
-                    Category category = Transport.getInstance();
-                    category.setTotal(amount);
-                }
-                else if (transaction[4].Equals("Income"))
-                {
-                    Category category = Income.getInstance();
-                    category.setTotal(amount);
-                }
+        public void deleteTransactions()
+        {
+            transactions_path = @"Transactions.txt";
+            transactionRecords = File.ReadAllLines(transactions_path);
+
+
+            Console.WriteLine("Transaction Records");
+            Console.WriteLine();
+            Console.WriteLine("ID | Name | Amount | isExpense | Date | Category");
+
+            //Display the recent transactions
+            for (int i = 0; i < transactionRecords.Length; i++)
+            {
+                String[] transaction = transactionRecords[i].Split('|');
+                Console.WriteLine($"{i} | {transaction[0]} | {transaction[1]} | {transaction[2]} | {transaction[3]} | {transaction[4]}");
+            }
+
+            Console.WriteLine("Enter the transaction ID that you want to delete:");
+            int id = Convert.ToInt32(Console.ReadLine());
+            String[] deleteRecord = transactionRecords[id].Split('|');
+
+            //Reduce the transaction amount from the total
+            reduceAmounts(deleteRecord);
+
+            deleteTransactionLine("Transactions.txt", id);
+        }
+
+        public void reduceAmounts(String[] record)
+        {
+            if (record[4].Equals("Education"))
+            {
+                category = Education.getInstance();
+                category.reduceTotal(Convert.ToDouble(record[1]));
+            }
+            else if (record[4].Equals("Transport"))
+            {
+                category = Transport.getInstance();
+                category.reduceTotal(Convert.ToDouble(record[1]));
+                Console.WriteLine("After removal " + category.getTotal());
+            }
+            else if (record[4].Equals("Income"))
+            {
+                category = Income.getInstance();
+                category.reduceTotal(Convert.ToDouble(record[1]));
             }
         }
 
@@ -127,7 +139,7 @@ namespace ExpenseTracker
 		{
             transactions_path = @"Transactions.txt";
             transactionRecords = File.ReadAllLines(transactions_path);
-            Category category = null;
+
 
             Console.WriteLine("Transaction Records");
             Console.WriteLine();
@@ -152,21 +164,7 @@ namespace ExpenseTracker
             Console.WriteLine();
 
             //Reduce the transaction amount from the total
-            if (updateRecord[4].Equals("Education"))
-            {
-                category = Education.getInstance();
-                category.reduceTotal(Convert.ToDouble(updateRecord[1]));
-            }
-            else if (updateRecord[4].Equals("Transport"))
-            {
-                category = Transport.getInstance();
-                category.reduceTotal(Convert.ToDouble(updateRecord[1]));
-            }
-            else if (updateRecord[4].Equals("Income"))
-            {
-                category = Income.getInstance();
-                category.reduceTotal(Convert.ToDouble(updateRecord[1]));
-            }
+            reduceAmounts(updateRecord);
 
             //Update the transaction
             Console.WriteLine("Enter the transaction name:");
@@ -188,7 +186,6 @@ namespace ExpenseTracker
             }
 
             String today = DateTime.Now.ToString("M/d/yyyy");
-
             Console.WriteLine("Enter the transaction category:");
             Console.WriteLine("1 - Income, 2 - Education, 3 - Transport");
             String transaction_category = Console.ReadLine();
@@ -219,9 +216,7 @@ namespace ExpenseTracker
 
             //Replace the transaction line in the file
             replaceTransactionLine(newRecord,"Transactions.txt", id);
-
         }
-
 
 	}
 }
