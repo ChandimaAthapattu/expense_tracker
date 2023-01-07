@@ -15,6 +15,8 @@ namespace ExpenseTracker
 		public abstract Double getTotal();
 
 		public abstract void setTotal(Double amount);
+
+		public abstract void reduceTotal(Double amount);
         
     }
 }
