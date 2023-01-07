@@ -1,29 +1,29 @@
 ﻿using System;
 namespace ExpenseTracker
 {
-	public class Transport:Category
+	public class Income:Category
 	{
-        private static Transport _instance;
+        private static Income _instance;
         private String name;
         private bool isExpense;
         private Double totalAmount;
 
-        private Transport()
-        { 
-            name = "Transport";
-			isExpense = true;
-		}
+        private Income()
+		{
+            name = "Income";
+            isExpense = false;
+        }
 
-        public static Transport getInstance()
+        public static Income getInstance()
         {
             if (_instance is null)
             {
-                _instance = new Transport();
+                _instance = new Income();
             }
             return _instance;
         }
 
-        public override String getCategoryName()
+        public override string getCategoryName()
         {
             return name;
         }
@@ -33,14 +33,14 @@ namespace ExpenseTracker
             return isExpense;
         }
 
-        public override Double getTotal()
+        public override double getTotal()
         {
             return totalAmount;
         }
 
-        public override void setTotal(Double transaction_amount)
+        public override void setTotal(double amount)
         {
-            totalAmount = totalAmount + transaction_amount;
+            totalAmount = totalAmount + amount;
         }
 
         public override void reduceTotal(Double amount)

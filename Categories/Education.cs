@@ -6,12 +6,12 @@ namespace ExpenseTracker
 		private static Education _instance;
 		private String name;
 		private bool isExpense;
-		private Double totalSpent;
+		private Double totalAmount;
 
 		private Education()
 		{
 			name = "Education";
-			isExpense = false;
+			isExpense = true;
 		}
 
 		public static Education getInstance()
@@ -35,14 +35,19 @@ namespace ExpenseTracker
 
 		public override Double getTotal()
 		{
-			return totalSpent;
+			return totalAmount;
 		}
 
 		public override void setTotal(Double transaction_amount)
 		{
-			totalSpent = totalSpent + transaction_amount;
+            totalAmount = totalAmount + transaction_amount;
 			
 		}
-	}
+
+        public override void reduceTotal(Double amount)
+        {
+            totalAmount = totalAmount - amount;
+        }
+    }
 }
 

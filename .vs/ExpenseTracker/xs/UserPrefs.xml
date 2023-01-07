@@ -4,6 +4,11 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
       <File FileName="Program.cs" Line="5" Column="1" />
+      <File FileName="Transaction.cs" Line="17" Column="21" />
+      <File FileName="Budget.cs" />
+      <File FileName="Category.cs" Line="13" Column="1" />
+      <File FileName="CategoryA.cs" />
+      <File FileName="CategoryB.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
