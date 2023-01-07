@@ -3,22 +3,25 @@
   <MonoDevelop.Ide.ItemProperties.ExpenseTracker PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="Program.cs" Line="5" Column="1" />
-      <File FileName="Transaction.cs" Line="17" Column="21" />
-      <File FileName="Budget.cs" />
-      <File FileName="Category.cs" Line="13" Column="1" />
-      <File FileName="CategoryA.cs" />
-      <File FileName="CategoryB.cs" />
+      <File FileName="Categories/Category.cs" Line="10" Column="1" />
+      <File FileName="Categories/Education.cs" Line="41" Column="32" />
+      <File FileName="Categories/Transport.cs" Line="9" Column="35" />
+      <File FileName="Categories/Income.cs" Line="9" Column="35" />
+      <File FileName="Program.cs" Line="59" Column="39" />
+      <File FileName="Transaction.cs" Line="155" Column="17" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="ExpenseTracker" expanded="True">
             <Node name="ExpenseTracker" expanded="True">
-              <Node name="Program.cs" selected="True" />
+              <Node name="Categories" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
