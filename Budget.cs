@@ -1,11 +1,10 @@
 ﻿using System;
 namespace ExpenseTracker
 {
-	public class Budget
+	interface Budget
 	{
-		public Budget()
-		{
-		}
+		 public string getcategoryName();
+                 public double getBudget();
 	}
 }
 
