@@ -26,6 +26,36 @@ namespace ExpenseTracker
             //transaction.editTransaction();
 
             //transaction.deleteTransactions();
+            
+            //*********************************Add by Lohitha********************************
+            // Create Budget factory object
+            BudgetFactory bf = new BudgetFactory();
+
+            // Get data from the text file
+            bf.readTransactionData();
+            
+            // Get total budget
+            Console.WriteLine(bf.getTotalBudget());
+            
+            //Get category budget
+            //Assuming that categories are in an array or arrayList
+            List<string> catogeryList = new List<string>();
+
+            //Add objects to categoryList
+            catogeryList.Add("Transport");
+            catogeryList.Add("Food");
+            catogeryList.Add("Education");
+
+            //Loop to call category budget
+            for(int i = 0; i < catogeryList.Count; i++)
+            {
+                string categoryName = catogeryList[i];
+                Console.WriteLine(categoryName);
+                Budget budg = bf.getCategoryBudget(categoryName);
+                Console.WriteLine(budg.getcategoryName()+", Budget Amount - "+ budg.getBudget());
+            }
+            
+            //*********************************************************************************
 
         }
 
