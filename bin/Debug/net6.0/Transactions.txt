@@ -5,3 +5,5 @@ aaa|10|False|1/6/2023|Income
 bbb|10|False|1/6/2023|Income
 Buy Vegetables|800|True|1/7/2023|Education
 Train|100|True|1/7/2023|Transport
+Fuel|1000|True|1/8/2023|Transport
+Fish|900|True|1/8/2023|Food

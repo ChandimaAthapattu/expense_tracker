@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ExpenseTracker.Categories
+namespace ExpenseTracker
 {
 	public class Health:Category
 	{

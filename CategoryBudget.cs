@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 namespace ExpenseTracker
 {
-class CategoryBudget:Budget
+    class CategoryBudget : Budget
     {
         private string categoryName;
         private double targetAmount;
-     
+
 
         public CategoryBudget(string categoryName, double targetAmount)
         {
@@ -17,7 +17,7 @@ class CategoryBudget:Budget
 
         public CategoryBudget(Category category, double targetAmount)
         {
-            this.categoryName = category.getName();
+            this.categoryName = category.getCategoryName();
             this.targetAmount = targetAmount;
         }
 
@@ -26,7 +26,7 @@ class CategoryBudget:Budget
             return categoryName;
         }
 
-        
+
         public double getBudget()
         {
             return targetAmount;
@@ -36,6 +36,6 @@ class CategoryBudget:Budget
         {
             this.targetAmount = budget;
         }
-        
-    }
 
+    }
+}
