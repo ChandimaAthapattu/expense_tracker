@@ -64,30 +64,6 @@ namespace ExpenseTracker
             Console.WriteLine("Transaction successfully deleted.");
         }
 
-        public void readTransactionData()
-        {
-            
-        }
-
-        public void viewTransactions()
-        {
-            transactions_path = @"Transactions.txt";
-            transactionRecords = File.ReadAllLines(transactions_path);
-
-
-            Console.WriteLine("Transaction Records");
-            Console.WriteLine();
-            Console.WriteLine("ID | Name | Amount | isExpense | Date | Category");
-
-            //Display the recent transactions
-            for (int i = 0; i < transactionRecords.Length; i++)
-            {
-                String[] transaction = transactionRecords[i].Split('|');
-                Console.WriteLine($"{i} | {transaction[0]} | {transaction[1]} | {transaction[2]} | {transaction[3]} | {transaction[4]}");
-            }
-            Console.Clear();
-        }
-
         public void deleteTransactions()
         {
             transactions_path = @"Transactions.txt";

@@ -48,7 +48,7 @@ class BudgetFactory
         //Alternative Method
         public Budget getCategoryBudget(Category category)
         {
-            string categoryName = category.getName();
+            string categoryName = category.getCategoryName();
             if (categoryBudgetList.ContainsKey(categoryName))
             {
                 CategoryBudget categoryBudget = (CategoryBudget)categoryBudgetList[categoryName];
