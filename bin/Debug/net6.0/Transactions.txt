@@ -1,9 +1,10 @@
-groceries|200|True|1/6/2023|Education
-Vegetables|950|True|1/5/2023|Education
+groceries|20|True|1/6/2023|Education
+Vegetables|95|True|1/5/2023|Education
 MonthlyIncome|10|False|1/6/2023|Income
-aaa|10|False|1/6/2023|Income
-bbb|10|False|1/6/2023|Income
-Buy Vegetables|800|True|1/7/2023|Education
-Train|100|True|1/7/2023|Transport
-Fuel|1000|True|1/8/2023|Transport
-Fish|900|True|1/8/2023|Food
+aaa|2000|False|1/6/2023|Income
+bbb|5000|False|1/6/2023|Income
+Buy Vegetables|80|True|1/7/2023|Education
+Train|10|True|1/7/2023|Transport
+Fuel|10|True|1/8/2023|Transport
+Fish|90|True|1/8/2023|Food
+Salary|1000|False|1/9/2023|Income
