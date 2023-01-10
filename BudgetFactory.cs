@@ -10,7 +10,7 @@ class BudgetFactory
         private Dictionary<string, CategoryBudget> categoryBudgetList = new Dictionary<string, CategoryBudget>();
         private Budget categoryBudget;
         double totalBudget;
-        
+        public Double allocateBudget, remainingTotalBudget, totalIncome;
 
         private string categoryBudgetPath;
         private string[] categoryBudgetRecords;
@@ -20,15 +20,64 @@ class BudgetFactory
             if (categoryBudgetList.ContainsKey(categoryName))
             {
                 CategoryBudget categoryBudget = (CategoryBudget)categoryBudgetList[categoryName];
+                allocateBudget = allocateBudget - getCategoryBudget(categoryName).getBudget();
+                allocateBudget = allocateBudget + targetAmount;
+                remainingTotalBudget = remainingTotalBudget + getCategoryBudget(categoryName).getBudget();
+                remainingTotalBudget = remainingTotalBudget - targetAmount;
+                Console.WriteLine($"Allocate budget AFTER OVERWRITE {allocateBudget}");
+                Console.WriteLine($"Remaining total budget AFTER OVERWRITE {remainingTotalBudget}");
                 categoryBudget.setBudget(targetAmount);
+                //Update the file
+                
             }
             else
             {
                 CategoryBudget categoryBudget = new CategoryBudget(categoryName, targetAmount);
                 categoryBudgetList.Add(categoryName, categoryBudget);
                 writeToFile(categoryName, targetAmount);
+                allocateBudget = allocateBudget + targetAmount;
+                remainingTotalBudget = remainingTotalBudget - targetAmount;
+                Console.WriteLine($"Allocate budget AFTER {allocateBudget}");
+                Console.WriteLine($"Remaining total budget AFTER {remainingTotalBudget}");
             }
             return (Budget)categoryBudget;
+        }
+
+        public void createBudget(String transaction_category)
+        {
+            Console.WriteLine();
+            Console.WriteLine("2. Enter the target budget amount:");
+            Double targetAmount = Convert.ToDouble(Console.ReadLine());
+
+            Category category = Income.getInstance();
+            totalIncome = category.getTotal();
+            if (allocateBudget==0)
+            {
+                remainingTotalBudget = totalIncome;
+            }
+            
+            Console.WriteLine($"Allocate budget {allocateBudget}");
+            Console.WriteLine($"Remaining total budget {remainingTotalBudget}");
+            Console.WriteLine($"Total Income {totalIncome}");
+
+            if (targetAmount <= totalIncome)
+            {
+                if (targetAmount <= remainingTotalBudget)
+                {
+                    newCategoryBudget(transaction_category, targetAmount);
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Your budget amount is over the remaining balance.");
+                }
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine("Your budget amount is over the total income.");
+            }
+            Program.exit();
         }
 
         public Budget getCategoryBudget(string categoryName)
@@ -108,4 +157,5 @@ class BudgetFactory
         }
     }
 }
+
 

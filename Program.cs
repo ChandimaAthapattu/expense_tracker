@@ -12,11 +12,16 @@ namespace ExpenseTracker
         static String transactions_path = @"Transactions.txt";
         static String[] transactionRecords = File.ReadAllLines(transactions_path);
         static String transactionRecord;
+        static Double targetAmount, spentAmount;
+
+        // Create Budget factory object
+        static BudgetFactory bf = new BudgetFactory();
 
         public static void Main(String[] args)
         {
-
             readTransactionData();
+
+
             Display_main();
 
             //createTransaction();
@@ -35,33 +40,33 @@ namespace ExpenseTracker
 
             ////transaction.deleteTransactions();
 
-            ////*********************************Add by Lohitha********************************
-            //// Create Budget factory object
-            //BudgetFactory bf = new BudgetFactory();
+            //*********************************Add by Lohitha********************************
+            // Create Budget factory object
+            BudgetFactory bf = new BudgetFactory();
 
-            //// Get data from the text file
-            //bf.readTransactionData();
+            // Get data from the text file
+            bf.readTransactionData();
 
-            //// Get total budget
-            //Console.WriteLine(bf.getTotalBudget());
+            // Get total budget
+            Console.WriteLine(bf.getTotalBudget());
 
-            ////Get category budget
-            ////Assuming that categories are in an array or arrayList
-            //List<string> catogeryList = new List<string>();
+            //Get category budget
+            //Assuming that categories are in an array or arrayList
+            List<string> catogeryList = new List<string>();
 
-            ////Add objects to categoryList
-            //catogeryList.Add("Transport");
-            //catogeryList.Add("Food");
-            //catogeryList.Add("Education");
+            //Add objects to categoryList
+            catogeryList.Add("Transport");
+            catogeryList.Add("Food");
+            catogeryList.Add("Education");
 
-            ////Loop to call category budget
-            //for (int i = 0; i < catogeryList.Count; i++)
-            //{
-            //    string categoryName = catogeryList[i];
-            //    Console.WriteLine(categoryName);
-            //    Budget budg = bf.getCategoryBudget(categoryName);
-            //    Console.WriteLine(budg.getcategoryName() + ", Budget Amount - " + budg.getBudget());
-            //}
+            //Loop to call category budget
+            for (int i = 0; i < catogeryList.Count; i++)
+            {
+                string categoryName = catogeryList[i];
+                Console.WriteLine(categoryName);
+                Budget budg = bf.getCategoryBudget(categoryName);
+                Console.WriteLine(budg.getcategoryName() + ", Budget Amount - " + budg.getBudget());
+            }
 
             ////*********************************************************************************
 
@@ -296,7 +301,51 @@ namespace ExpenseTracker
                 {
                     //View budget
                     Console.Clear();
-                    Console.WriteLine("Budget View");
+                    Console.WriteLine("View Budget Page:");
+                    Console.WriteLine();
+                    Console.WriteLine("1. Enter the budget category:");
+                    Console.WriteLine("(1 - Education, 2 - Transport, 3 - Food, 4 - Health)");
+                    String budget_category = Console.ReadLine();
+                    if (budget_category.Equals("1"))
+                    {
+                        category = Education.getInstance();
+                        budget_category = "Education";
+                        targetAmount = bf.getCategoryBudget(budget_category).getBudget();
+                        spentAmount = category.getTotal();
+                        viewBudget("Education");
+                    }
+                    else if (budget_category.Equals("2"))
+                    {
+                        category = Transport.getInstance();
+                        budget_category = "Transport";
+                        targetAmount = bf.getCategoryBudget(budget_category).getBudget();
+                        spentAmount = category.getTotal();
+                        viewBudget("Transport");
+
+                    }
+                    else if (budget_category.Equals("3"))
+                    {
+                        category = Food.getInstance();
+                        budget_category = "Food";
+                        targetAmount = bf.getCategoryBudget(budget_category).getBudget();
+                        spentAmount = category.getTotal();
+                        viewBudget("Food");
+
+                    }
+                    else if (budget_category.Equals("4"))
+                    {
+                        category = Health.getInstance();
+                        budget_category = "Health";
+                        targetAmount = bf.getCategoryBudget(budget_category).getBudget();
+                        spentAmount = category.getTotal();
+                        viewBudget("Health");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Your category input is incorrect.");
+                        exit();
+                    }
                     exit();
 
                 }
@@ -372,9 +421,38 @@ namespace ExpenseTracker
                     if (input == 1)
                     {
                         Console.Clear();
-                        Console.WriteLine("Create a budget");
                         //Create budget
-                        exit();
+
+                        Console.WriteLine("Create Budget Page:");
+                        Console.WriteLine();
+                        Console.WriteLine("1. Enter the transaction category:");
+                        Console.WriteLine("(1 - Education, 2 - Transport, 3 - Food, 4 - Health)");
+                        String transaction_category = Console.ReadLine();
+                        if (transaction_category.Equals("1"))
+                        {
+                            transaction_category = "Education";
+                            bf.createBudget(transaction_category);
+                        }
+                        else if (transaction_category.Equals("2"))
+                        {
+                            transaction_category = "Transport";
+                            bf.createBudget(transaction_category);
+                        }
+                        else if (transaction_category.Equals("3"))
+                        {
+                            transaction_category = "Food";
+                            bf.createBudget(transaction_category);
+                        }
+                        else if (transaction_category.Equals("4"))
+                        {
+                            transaction_category = "Health";
+                            bf.createBudget(transaction_category);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your category input is incorrect.");
+                            exit();
+                        }
                     }
                     else
                     {
@@ -394,13 +472,37 @@ namespace ExpenseTracker
             }
         }
 
+        public static void viewBudget(String categoryName)
+        {
+            Console.WriteLine();
+            Console.WriteLine("=====================================");
+            Console.WriteLine($"Budget Category : {categoryName}");
+            Console.WriteLine();
+            Console.WriteLine($"Budget Amount : {targetAmount}");
+            Console.WriteLine($"Spent Amount : {spentAmount}");
+            Console.WriteLine();
+
+            if(spentAmount > targetAmount)
+            {
+                Console.WriteLine($"{categoryName} budget is EXCEEDED.");
+            }
+            else if (spentAmount < targetAmount)
+            {
+                Console.WriteLine($"{categoryName} budget is NOT EXCEEDED.");
+            }
+            else
+            {
+                Console.WriteLine($"{categoryName} budget is REACHED.");
+            }
+        }
+
         public static void Display_Viewmode_Selection_M()
         {
-            Console.WriteLine("**************************You are in Viewer Mode Selection Menue********************* ");
+            Console.WriteLine("************************** You are in Viewer Mode Selection Menu ********************* ");
             Console.WriteLine(" ");
-            Console.WriteLine("============================View Mode Selection Menue=========================== ");
+            Console.WriteLine("============================ View Mode Selection Menu =========================== ");
             Console.WriteLine(" ");
-            Console.WriteLine("1. To view Transactions");
+            Console.WriteLine("1. To View Transactions");
             Console.WriteLine(" ");
             Console.WriteLine("2. To View Budget");
             Console.WriteLine(" ");
