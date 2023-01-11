@@ -12,7 +12,7 @@ namespace ExpenseTracker
         static String transactions_path = @"Transactions.txt";
         static String[] transactionRecords = File.ReadAllLines(transactions_path);
         static String transactionRecord;
-        static Double targetAmount, spentAmount;
+        static Double targetAmount, spentAmount, totalBudgetSpent;
 
         // Create Budget factory object
         static BudgetFactory bf = new BudgetFactory();
@@ -20,8 +20,7 @@ namespace ExpenseTracker
         public static void Main(String[] args)
         {
             readTransactionData();
-
-
+            bf.readBudgetData();
             Display_main();
 
             //createTransaction();
@@ -42,31 +41,31 @@ namespace ExpenseTracker
 
             //*********************************Add by Lohitha********************************
             // Create Budget factory object
-            BudgetFactory bf = new BudgetFactory();
+            //BudgetFactory bf = new BudgetFactory();
 
-            // Get data from the text file
-            bf.readTransactionData();
+            //// Get data from the text file
+            //bf.readTransactionData();
 
-            // Get total budget
-            Console.WriteLine(bf.getTotalBudget());
+            //// Get total budget
+            //Console.WriteLine(bf.getTotalBudget());
 
-            //Get category budget
-            //Assuming that categories are in an array or arrayList
-            List<string> catogeryList = new List<string>();
+            ////Get category budget
+            ////Assuming that categories are in an array or arrayList
+            //List<string> catogeryList = new List<string>();
 
-            //Add objects to categoryList
-            catogeryList.Add("Transport");
-            catogeryList.Add("Food");
-            catogeryList.Add("Education");
+            ////Add objects to categoryList
+            //catogeryList.Add("Transport");
+            //catogeryList.Add("Food");
+            //catogeryList.Add("Education");
 
-            //Loop to call category budget
-            for (int i = 0; i < catogeryList.Count; i++)
-            {
-                string categoryName = catogeryList[i];
-                Console.WriteLine(categoryName);
-                Budget budg = bf.getCategoryBudget(categoryName);
-                Console.WriteLine(budg.getcategoryName() + ", Budget Amount - " + budg.getBudget());
-            }
+            ////Loop to call category budget
+            //for (int i = 0; i < catogeryList.Count; i++)
+            //{
+            //    string categoryName = catogeryList[i];
+            //    Console.WriteLine(categoryName);
+            //    Budget budg = bf.getCategoryBudget(categoryName);
+            //    Console.WriteLine(budg.getcategoryName() + ", Budget Amount - " + budg.getBudget());
+            //}
 
             ////*********************************************************************************
 
@@ -97,6 +96,17 @@ namespace ExpenseTracker
                     Category category = Income.getInstance();
                     category.setTotal(amount);
                 }
+                else if (transaction[4].Equals("Food"))
+                {
+                    Category category = Food.getInstance();
+                    category.setTotal(amount);
+                }
+                else if (transaction[4].Equals("Health"))
+                {
+                    Category category = Health.getInstance();
+                    category.setTotal(amount);
+                }
+
             }
         }
 
@@ -304,42 +314,66 @@ namespace ExpenseTracker
                     Console.WriteLine("View Budget Page:");
                     Console.WriteLine();
                     Console.WriteLine("1. Enter the budget category:");
-                    Console.WriteLine("(1 - Education, 2 - Transport, 3 - Food, 4 - Health)");
+                    Console.WriteLine("(1 - Education, 2 - Transport, 3 - Food, 4 - Health, 5 - Overall)");
                     String budget_category = Console.ReadLine();
                     if (budget_category.Equals("1"))
                     {
                         category = Education.getInstance();
                         budget_category = "Education";
-                        targetAmount = bf.getCategoryBudget(budget_category).getBudget();
-                        spentAmount = category.getTotal();
-                        viewBudget("Education");
+                        viewBudget(category, budget_category);
                     }
                     else if (budget_category.Equals("2"))
                     {
                         category = Transport.getInstance();
                         budget_category = "Transport";
-                        targetAmount = bf.getCategoryBudget(budget_category).getBudget();
-                        spentAmount = category.getTotal();
-                        viewBudget("Transport");
+                        viewBudget(category, budget_category);
 
                     }
                     else if (budget_category.Equals("3"))
                     {
                         category = Food.getInstance();
                         budget_category = "Food";
-                        targetAmount = bf.getCategoryBudget(budget_category).getBudget();
-                        spentAmount = category.getTotal();
-                        viewBudget("Food");
+                        viewBudget(category, budget_category);
 
                     }
                     else if (budget_category.Equals("4"))
                     {
                         category = Health.getInstance();
                         budget_category = "Health";
-                        targetAmount = bf.getCategoryBudget(budget_category).getBudget();
-                        spentAmount = category.getTotal();
-                        viewBudget("Health");
+                        viewBudget(category, budget_category);
 
+                    }
+                    else if (budget_category.Equals("5"))
+                    {
+                        //Reset the total spent budget
+                        totalBudgetSpent = 0;
+                        //Get the current total budget
+                        Double totalBudget = bf.getTotalBudget();
+                        
+
+                        //Get the categories spent amount which already having budgets created.
+                        String categoryName;
+                        category = Education.getInstance();
+                        categoryName = category.getCategoryName();
+                        totalSpent(categoryName, category);
+
+                        category = Transport.getInstance();
+                        categoryName = category.getCategoryName();
+                        totalSpent(categoryName, category);
+
+                        category = Food.getInstance();
+                        categoryName = category.getCategoryName();
+                        totalSpent(categoryName, category);
+
+                        category = Health.getInstance();
+                        categoryName = category.getCategoryName();
+                        totalSpent(categoryName, category);
+
+                        Console.WriteLine();
+                        Console.WriteLine("Total budget : " + totalBudget);
+                        Console.WriteLine($"Total Spent Budget {totalBudgetSpent}");
+                        Console.WriteLine();
+                        budgetStatus(totalBudget, totalBudgetSpent, "Total");
                     }
                     else
                     {
@@ -466,23 +500,57 @@ namespace ExpenseTracker
                     Display_main();
                 }
             }
-            else
+            else if (input_main == 3)
             {
-                //Program exited.
+                Console.WriteLine();
+                Console.WriteLine("PROGRAM EXISTS...");
             }
         }
 
-        public static void viewBudget(String categoryName)
+        public static void totalSpent(String categoryName, Category category)
         {
-            Console.WriteLine();
-            Console.WriteLine("=====================================");
-            Console.WriteLine($"Budget Category : {categoryName}");
-            Console.WriteLine();
-            Console.WriteLine($"Budget Amount : {targetAmount}");
-            Console.WriteLine($"Spent Amount : {spentAmount}");
-            Console.WriteLine();
+            try
+            {
+                String budgetCategory = bf.getCategoryBudget(categoryName).getcategoryName();
+                //Console.WriteLine("Budget Category : " + budgetCategory);
 
-            if(spentAmount > targetAmount)
+                if (categoryName.Equals(budgetCategory))
+                {
+                    //Console.WriteLine($"SUCCEEDED {categoryName}");
+                    totalBudgetSpent = totalBudgetSpent + category.getTotal();
+                }
+            }
+            catch (NullReferenceException err)
+            {
+                Console.WriteLine($"No budget created for category '{categoryName}'.");
+            }
+        }
+
+        public static void viewBudget(Category category,String categoryName)
+        {
+            try
+            {
+                targetAmount = bf.getCategoryBudget(categoryName).getBudget();
+                spentAmount = category.getTotal();
+
+                Console.WriteLine();
+                Console.WriteLine("=====================================");
+                Console.WriteLine($"Budget Category : {categoryName}");
+                Console.WriteLine();
+                Console.WriteLine($"Budget Amount : {targetAmount}");
+                Console.WriteLine($"Spent Amount : {spentAmount}");
+                Console.WriteLine();
+                budgetStatus(targetAmount, spentAmount, categoryName);
+            }
+            catch(NullReferenceException err)
+            {
+                Console.WriteLine($"No budget created for category '{categoryName}'.");
+            }
+        }
+
+        public static void budgetStatus(Double targetAmount, Double spentAmount, String categoryName)
+        {
+            if (spentAmount > targetAmount)
             {
                 Console.WriteLine($"{categoryName} budget is EXCEEDED.");
             }
