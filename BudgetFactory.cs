@@ -26,6 +26,11 @@ class BudgetFactory
                 remainingTotalBudget = remainingTotalBudget - targetAmount;
                 Console.WriteLine($"Allocate budget AFTER OVERWRITE {allocateBudget}");
                 Console.WriteLine($"Remaining total budget AFTER OVERWRITE {remainingTotalBudget}");
+                 
+                //*******************************************************************************************
+                //Append the Budget
+                appendBudgetData(categoryName, targetAmount);
+                //********************************************************************************************
                 categoryBudget.setBudget(targetAmount);
                 //Update the file
                 appendBudgetData(categoryName, targetAmount);
@@ -185,7 +190,6 @@ class BudgetFactory
                 categoryBudgetRecords[editLine] = newCategoryBudget_record;
                 File.WriteAllLines(fileName, categoryBudgetRecords);
             }
-
         }
         //*********************************************************************************
     }
