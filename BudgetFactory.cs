@@ -127,7 +127,7 @@ class BudgetFactory
         }
 
         
-        public void readTransactionData()
+        public void readTransactionData()//Have to change the name
         {
             //Read the Budget file content
             categoryBudgetPath = @"CategoryBudget.txt";
@@ -141,10 +141,23 @@ class BudgetFactory
                 String[] categoryBudget = categoryBudgetRecords[i].Split('|');
                 string categoryNameFile = categoryBudget[0];
                 double budgetFile = System.Convert.ToDouble(categoryBudget[1]);
+                
+                //*****************************************************************************************
+                //Calculating the Allcate Budget
+                allocateBudget = allocateBudget + budgetFile;
+                //******************************************************************************************
 
                 Console.WriteLine("Read from file : Name -" + categoryNameFile + ", Budget - " + budgetFile);
                 categoryBudgetList.Add(categoryNameFile, new CategoryBudget(categoryNameFile, budgetFile));
             }
+            
+            //**************************************************************************************************
+           //Get income value
+            Category category = Income.getInstance();
+            totalIncome = category.getTotal();
+            //assign remaining Total Budget
+            remainingTotalBudget = totalIncome - allocateBudget;
+            //**************************************************************************************************
         }
         
         public double getTotalBudget()
