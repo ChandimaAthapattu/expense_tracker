@@ -26,6 +26,11 @@ class BudgetFactory
                 remainingTotalBudget = remainingTotalBudget - targetAmount;
                 Console.WriteLine($"Allocate budget AFTER OVERWRITE {allocateBudget}");
                 Console.WriteLine($"Remaining total budget AFTER OVERWRITE {remainingTotalBudget}");
+                 
+                //*******************************************************************************************
+                //Append the Budget
+                appendBudgetData(categoryName, targetAmount);
+                //********************************************************************************************
                 categoryBudget.setBudget(targetAmount);
                 //Update the file
                 
@@ -155,6 +160,36 @@ class BudgetFactory
             }
             return totalBudget;
         }
+    
+    //**************************Lohitha - 11.01.2023******************************************
+        public void appendBudgetData(string categoryName, double targetAmount)
+        {
+            int editLine=-1;
+            String newCategoryBudget_record = $"{categoryName}|{targetAmount}";
+            string fileName = "CategoryBudget.txt";
+            //Read the Budget file content
+            categoryBudgetPath = @"CategoryBudget.txt";
+            categoryBudgetRecords = File.ReadAllLines(categoryBudgetPath);
+
+            for (int i = 0; i < categoryBudgetRecords.Length; i++)
+            {
+                String[] categoryBudget = categoryBudgetRecords[i].Split('|');
+                string categoryNameFile = categoryBudget[0];
+                if (categoryNameFile.Equals(categoryName))
+                {
+                    editLine = i;
+                    break;
+                }
+            }
+            if (editLine > -1)
+            {
+                categoryBudgetRecords[editLine] = newCategoryBudget_record;
+                File.WriteAllLines(fileName, categoryBudgetRecords);
+            }
+            
+        }
+        //*********************************************************************************
+
     }
 }
 
