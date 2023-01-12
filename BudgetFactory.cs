@@ -61,6 +61,10 @@ class BudgetFactory
             {
                 remainingTotalBudget = totalIncome;
             }
+            else
+            {
+                remainingTotalBudget = totalIncome - allocateBudget;
+            }
             
             Console.WriteLine($"Allocate budget {allocateBudget}");
             Console.WriteLine($"Remaining total budget {remainingTotalBudget}");

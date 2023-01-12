@@ -22,53 +22,6 @@ namespace ExpenseTracker
             readTransactionData();
             bf.readBudgetData();
             Display_main();
-
-            //createTransaction();
-
-            ////Get the category wise spent amounts
-            //category = Education.getInstance();
-            //Console.WriteLine($"Spent amount for Education: {category.getTotal()}");
-            //category = Transport.getInstance();
-            //Console.WriteLine($"Spent amount for Transport: {category.getTotal()}");
-
-            ////Get the total income
-            //category = Income.getInstance();
-            //Console.WriteLine($"Total Income: {category.getTotal()}");
-
-            ////transaction.editTransaction();
-
-            ////transaction.deleteTransactions();
-
-            //*********************************Add by Lohitha********************************
-            // Create Budget factory object
-            //BudgetFactory bf = new BudgetFactory();
-
-            //// Get data from the text file
-            //bf.readTransactionData();
-
-            //// Get total budget
-            //Console.WriteLine(bf.getTotalBudget());
-
-            ////Get category budget
-            ////Assuming that categories are in an array or arrayList
-            //List<string> catogeryList = new List<string>();
-
-            ////Add objects to categoryList
-            //catogeryList.Add("Transport");
-            //catogeryList.Add("Food");
-            //catogeryList.Add("Education");
-
-            ////Loop to call category budget
-            //for (int i = 0; i < catogeryList.Count; i++)
-            //{
-            //    string categoryName = catogeryList[i];
-            //    Console.WriteLine(categoryName);
-            //    Budget budg = bf.getCategoryBudget(categoryName);
-            //    Console.WriteLine(budg.getcategoryName() + ", Budget Amount - " + budg.getBudget());
-            //}
-
-            ////*********************************************************************************
-
         }
 
         public static void readTransactionData()
@@ -633,7 +586,7 @@ namespace ExpenseTracker
             Console.WriteLine(" ");
             Console.WriteLine("============================Editor Mode Budget Menue=========================== ");
             Console.WriteLine(" ");
-            Console.WriteLine("1. To create new budget");
+            Console.WriteLine("1. To create/edit new budget");
             Console.WriteLine(" ");
             Console.WriteLine("2. Back to Main Menu");
             Console.WriteLine(" ");
