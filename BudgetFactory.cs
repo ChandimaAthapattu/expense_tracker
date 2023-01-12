@@ -33,7 +33,8 @@ class BudgetFactory
                 //********************************************************************************************
                 categoryBudget.setBudget(targetAmount);
                 //Update the file
-                
+                appendBudgetData(categoryName, targetAmount);
+
             }
             else
             {
@@ -90,7 +91,7 @@ class BudgetFactory
             if (categoryBudgetList.ContainsKey(categoryName))
             {
                 CategoryBudget categoryBudget = (CategoryBudget)categoryBudgetList[categoryName];
-                Console.WriteLine("Sending Existing Category Budget");
+                //Console.WriteLine("Sending Existing Category Budget");
                 return categoryBudget;
             }
             else
@@ -132,7 +133,7 @@ class BudgetFactory
         }
 
         
-        public void readTransactionData()
+        public void readBudgetData()
         {
             //Read the Budget file content
             categoryBudgetPath = @"CategoryBudget.txt";
@@ -146,6 +147,8 @@ class BudgetFactory
                 String[] categoryBudget = categoryBudgetRecords[i].Split('|');
                 string categoryNameFile = categoryBudget[0];
                 double budgetFile = System.Convert.ToDouble(categoryBudget[1]);
+                //Add the target budget amount to memory
+                allocateBudget = allocateBudget + budgetFile;
 
                 Console.WriteLine("Read from file : Name -" + categoryNameFile + ", Budget - " + budgetFile);
                 categoryBudgetList.Add(categoryNameFile, new CategoryBudget(categoryNameFile, budgetFile));
@@ -154,17 +157,18 @@ class BudgetFactory
         
         public double getTotalBudget()
         {
+            totalBudget = 0;
             foreach (var value in categoryBudgetList.Values)
             {
                 totalBudget = totalBudget + value.getBudget();
             }
             return totalBudget;
         }
-    
-    //**************************Lohitha - 11.01.2023******************************************
+
+        //**************************Lohitha - 11.01.2023******************************************
         public void appendBudgetData(string categoryName, double targetAmount)
         {
-            int editLine=-1;
+            int editLine = -1;
             String newCategoryBudget_record = $"{categoryName}|{targetAmount}";
             string fileName = "CategoryBudget.txt";
             //Read the Budget file content
@@ -186,10 +190,8 @@ class BudgetFactory
                 categoryBudgetRecords[editLine] = newCategoryBudget_record;
                 File.WriteAllLines(fileName, categoryBudgetRecords);
             }
-            
         }
         //*********************************************************************************
-
     }
 }
 

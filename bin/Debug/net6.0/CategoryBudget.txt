@@ -1,12 +1,2 @@
-
-Education|100
-Transport|200
-Food|50
-Education|100
-Transport|500
-Food|1000
-Health|500
-Education|500
-Transport|250
-Food|1000
-Health|750
+Education|110
+Transport|220
