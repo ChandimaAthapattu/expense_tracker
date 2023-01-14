@@ -26,7 +26,6 @@ namespace ExpenseTracker
             return categoryName;
         }
 
-
         public double getBudget()
         {
             return targetAmount;
