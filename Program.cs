@@ -19,8 +19,15 @@ namespace ExpenseTracker
 
         public static void Main(String[] args)
         {
-            readTransactionData();
-            bf.readBudgetData();
+            try
+            {
+                readTransactionData();
+                bf.readBudgetData();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("No existing data to read.");
+            }
             Display_main();
         }
 
@@ -125,19 +132,26 @@ namespace ExpenseTracker
 
         public static void viewTransactions()
         {
-            String transactions_path = @"Transactions.txt";
-            String[] transactionRecords = File.ReadAllLines(transactions_path);
-
-
-            Console.WriteLine("Transaction Records :");
-            Console.WriteLine();
-            Console.WriteLine("ID | Name | Amount | isExpense | Date | Category");
-
-            //Display the recent transactions
-            for (int i = 0; i < transactionRecords.Length; i++)
+            try
             {
-                String[] transaction = transactionRecords[i].Split('|');
-                Console.WriteLine($"{i} | {transaction[0]} | {transaction[1]} | {transaction[2]} | {transaction[3]} | {transaction[4]}");
+                String transactions_path = @"Transactions.txt";
+                String[] transactionRecords = File.ReadAllLines(transactions_path);
+
+
+                Console.WriteLine("Transaction Records :");
+                Console.WriteLine();
+                Console.WriteLine("ID | Name | Amount | isExpense | Date | Category");
+
+                //Display the recent transactions
+                for (int i = 0; i < transactionRecords.Length; i++)
+                {
+                    String[] transaction = transactionRecords[i].Split('|');
+                    Console.WriteLine($"{i} | {transaction[0]} | {transaction[1]} | {transaction[2]} | {transaction[3]} | {transaction[4]}");
+                }
+            }
+            catch(FileNotFoundException e)
+            {
+                Console.WriteLine("No existing records to dispaly.");
             }
         }
 
@@ -501,6 +515,10 @@ namespace ExpenseTracker
             catch(NullReferenceException err)
             {
                 Console.WriteLine($"No budget created for category '{categoryName}'.");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("No existing data to dispaly. Please create a new budget.");
             }
         }
 

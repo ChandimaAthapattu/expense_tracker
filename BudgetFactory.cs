@@ -137,23 +137,30 @@ class BudgetFactory
         
         public void readBudgetData()
         {
-            //Read the Budget file content
-            categoryBudgetPath = @"CategoryBudget.txt";
-            categoryBudgetRecords = File.ReadAllLines(categoryBudgetPath);
-
-
-            //Read each Budget line
-                       
-            for (int i = 0; i < categoryBudgetRecords.Length; i++)
+            try
             {
-                String[] categoryBudget = categoryBudgetRecords[i].Split('|');
-                string categoryNameFile = categoryBudget[0];
-                double budgetFile = System.Convert.ToDouble(categoryBudget[1]);
-                //Add the target budget amount to memory
-                allocateBudget = allocateBudget + budgetFile;
+                //Read the Budget file content
+                categoryBudgetPath = @"CategoryBudget.txt";
+                categoryBudgetRecords = File.ReadAllLines(categoryBudgetPath);
 
-                //Console.WriteLine("Read from file : Name -" + categoryNameFile + ", Budget - " + budgetFile);
-                categoryBudgetList.Add(categoryNameFile, new CategoryBudget(categoryNameFile, budgetFile));
+
+                //Read each Budget line
+
+                for (int i = 0; i < categoryBudgetRecords.Length; i++)
+                {
+                    String[] categoryBudget = categoryBudgetRecords[i].Split('|');
+                    string categoryNameFile = categoryBudget[0];
+                    double budgetFile = System.Convert.ToDouble(categoryBudget[1]);
+                    //Add the target budget amount to memory
+                    allocateBudget = allocateBudget + budgetFile;
+
+                    //Console.WriteLine("Read from file : Name -" + categoryNameFile + ", Budget - " + budgetFile);
+                    categoryBudgetList.Add(categoryNameFile, new CategoryBudget(categoryNameFile, budgetFile));
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("No existing data to dispaly. Please create a new budget.");
             }
         }
         
