@@ -1,4 +1,0 @@
-Education true
-Transport true
-Salary false
-Gifts false

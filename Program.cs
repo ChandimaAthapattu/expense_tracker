@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace ExpenseTracker
 {
     public class Program
     {
         
-        static Category category = null;
-        static Transaction transaction = null;
+        private static Category category = null;
+        private static Transaction transaction = null;
         //Read the transaction file content
-        static String transactions_path = @"Transactions.txt";
-        static String[] transactionRecords = File.ReadAllLines(transactions_path);
-        static String transactionRecord;
-        static Double targetAmount, spentAmount, totalBudgetSpent;
-
+        private static String transactions_path = @"Transactions.txt";
+        private static String[] transactionRecords = File.ReadAllLines(transactions_path);
+        private static String transactionRecord;
+        private static Double targetAmount, spentAmount, totalBudgetSpent;
         // Create Budget factory object
-        static BudgetFactory bf = new BudgetFactory();
+        private static BudgetFactory bf = new BudgetFactory();
 
         public static void Main(String[] args)
         {
@@ -302,7 +302,10 @@ namespace ExpenseTracker
                         totalBudgetSpent = 0;
                         //Get the current total budget
                         Double totalBudget = bf.getTotalBudget();
-                        
+
+                        Console.WriteLine();
+                        Console.WriteLine("=====================================");
+                        Console.WriteLine();
 
                         //Get the categories spent amount which already having budgets created.
                         String categoryName;
@@ -453,7 +456,7 @@ namespace ExpenseTracker
                     Display_main();
                 }
             }
-            else if (input_main == 3)
+            else
             {
                 Console.WriteLine();
                 Console.WriteLine("PROGRAM EXISTS...");

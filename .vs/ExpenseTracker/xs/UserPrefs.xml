@@ -1,14 +1,15 @@
 ﻿<Properties StartupConfiguration="{7938675A-F416-4047-B51A-E3799CB4FC16}|Default" GitUserInfo="UsingGIT">
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.ExpenseTracker PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="Categories/Category.cs" Line="10" Column="1" />
-      <File FileName="Categories/Education.cs" Line="41" Column="32" />
-      <File FileName="Categories/Transport.cs" Line="9" Column="35" />
-      <File FileName="Categories/Income.cs" Line="9" Column="35" />
-      <File FileName="Program.cs" Line="59" Column="39" />
-      <File FileName="Transaction.cs" Line="155" Column="17" />
+      <File FileName="Program.cs" Line="312" Column="4" />
+      <File FileName="BudgetFactory.cs" Line="157" Column="19" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,18 +17,11 @@
           <Node name="ExpenseTracker" expanded="True">
             <Node name="ExpenseTracker" expanded="True">
               <Node name="Categories" expanded="True" />
+              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

@@ -11,7 +11,6 @@ class BudgetFactory
         private Budget categoryBudget;
         double totalBudget;
         public Double allocateBudget, remainingTotalBudget, totalIncome;
-
         private string categoryBudgetPath;
         private string[] categoryBudgetRecords;
 
@@ -94,7 +93,7 @@ class BudgetFactory
         {
             if (categoryBudgetList.ContainsKey(categoryName))
             {
-                CategoryBudget categoryBudget = (CategoryBudget)categoryBudgetList[categoryName];
+                categoryBudget = (CategoryBudget)categoryBudgetList[categoryName];
                 //Console.WriteLine("Sending Existing Category Budget");
                 return categoryBudget;
             }
@@ -110,7 +109,7 @@ class BudgetFactory
             string categoryName = category.getCategoryName();
             if (categoryBudgetList.ContainsKey(categoryName))
             {
-                CategoryBudget categoryBudget = (CategoryBudget)categoryBudgetList[categoryName];
+                categoryBudget = (CategoryBudget)categoryBudgetList[categoryName];
                 return categoryBudget;
             }
             else
@@ -135,7 +134,6 @@ class BudgetFactory
                 sw.WriteLine(categoryBudget_record);
             }
         }
-
         
         public void readBudgetData()
         {
@@ -154,7 +152,7 @@ class BudgetFactory
                 //Add the target budget amount to memory
                 allocateBudget = allocateBudget + budgetFile;
 
-                Console.WriteLine("Read from file : Name -" + categoryNameFile + ", Budget - " + budgetFile);
+                //Console.WriteLine("Read from file : Name -" + categoryNameFile + ", Budget - " + budgetFile);
                 categoryBudgetList.Add(categoryNameFile, new CategoryBudget(categoryNameFile, budgetFile));
             }
         }
@@ -169,7 +167,6 @@ class BudgetFactory
             return totalBudget;
         }
 
-        //**************************Lohitha - 11.01.2023******************************************
         public void appendBudgetData(string categoryName, double targetAmount)
         {
             int editLine = -1;
@@ -195,7 +192,6 @@ class BudgetFactory
                 File.WriteAllLines(fileName, categoryBudgetRecords);
             }
         }
-        //*********************************************************************************
     }
 }
 
